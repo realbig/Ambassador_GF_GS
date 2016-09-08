@@ -43,7 +43,7 @@ class GFGoogleSheets_Bootstrap {
 	}
 
 	/**
-	 * Determine if current server environment matches requirements to run the GoogleSheets Add-On.
+	 * Determine if current server environment matches requirements to run the GoogleS heets Add-On.
 	 *
 	 * @access public
 	 * @static
@@ -53,16 +53,6 @@ class GFGoogleSheets_Bootstrap {
 
 		/* PHP must be version 5.3 or greater. */
 		if ( version_compare( PHP_VERSION, '5.3.4', '<' ) ) {
-			return false;
-		}
-
-		/* PHP must be 64-bit. */
-		if ( PHP_INT_MAX !== 9223372036854775807 ) {
-			return false;
-		}
-
-		/* openssl_random_pseudo_bytes or mcrypt_create_iv must exist. */
-		if ( ! function_exists( 'openssl_random_pseudo_bytes' ) && ! function_exists( 'mcrypt_create_iv' ) ) {
 			return false;
 		}
 
