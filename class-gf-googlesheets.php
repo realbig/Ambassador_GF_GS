@@ -471,17 +471,20 @@ class GFGoogleSheets extends GFFeedAddOn {
 
 				$client->fetchAccessTokenWithRefreshToken( $client->getRefreshToken() );
 
-				$settings                = $this->get_plugin_settings();
-				$settings['accessToken'] = $client->getAccessToken();
+				$settings         = $this->get_plugin_settings();
+				$new_access_token = $client->getAccessToken();
+
+				// Make sure old refresh token gets copied over.
+				if ( ! isset( $new_access_token['refresh_token'] ) ) {
+					$new_access_token['refresh_token'] = $access_token['refresh_token'];
+				}
+
+				$settings['accessToken'] = $new_access_token;
 				$this->update_plugin_settings( $settings );
 			}
 
-
 			$googledrive  = new Google_Service_Drive( $client );
 			$googlesheets = new Google_Service_Sheets( $client );
-
-			// TODO Test request
-//			$googlesheets->getAccountInfo();
 
 			$this->api_drive  = $googledrive;
 			$this->api_sheets = $googlesheets;
@@ -899,7 +902,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 		try {
 
 			$body = new Google_Service_Sheets_ValueRange();
-			$body->setValues( array($row) );
+			$body->setValues( array( $row ) );
 
 			$this->api_sheets->spreadsheets_values->append(
 				$feed['meta']['sheet'],
