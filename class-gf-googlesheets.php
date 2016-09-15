@@ -139,28 +139,28 @@ class GFGoogleSheets extends GFFeedAddOn {
 	 * Contains an instance of the Google Drive API libray, if available.
 	 *
 	 * @since {{VERSION}}
-	 * @access protected
+	 * @access public
 	 * @var    Google_Service_Drive $api If available, contains an instance of the Google Drive API library.
 	 */
-	protected $api_drive = null;
+	public $api_drive = null;
 
 	/**
 	 * Contains an instance of the Google Sheets API libray, if available.
 	 *
 	 * @since {{VERSION}}
-	 * @access protected
+	 * @access public
 	 * @var    Google_Service_Sheets $api If available, contains an instance of the Google Sheets API library.
 	 */
-	protected $api_sheets = null;
+	public $api_sheets = null;
 
 	/**
 	 * Contains an instance of the Google Client.
 	 *
 	 * @since {{VERSION}}
-	 * @access protected
+	 * @access public
 	 * @var    Google_Client $api If available, contains an instance of the Google Client.
 	 */
-	protected $api_client = null;
+	public $api_client = null;
 
 	/**
 	 * Defines the GoogleSheets API client identifier.
