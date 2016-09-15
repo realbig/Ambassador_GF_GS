@@ -898,20 +898,12 @@ class GFGoogleSheets extends GFFeedAddOn {
 
 		try {
 
-			// Because I cannot append, I have to first figure out how many rows exist to get the proper range
-			// TODO Figure out better way to prevent 2 calls
-			$column_A = $this->api_sheets->spreadsheets_values->get( $feed['meta']['sheet'], 'A:A' );
-			$new_row = count( $column_A->values ) + 1;
-			$range = "$new_row:$new_row";
-
 			$body = new Google_Service_Sheets_ValueRange();
 			$body->setValues( array($row) );
-			$body->setRange($range);
-			$body->setMajorDimension('ROWS');
 
-			$this->api_sheets->spreadsheets_values->update(
+			$this->api_sheets->spreadsheets_values->append(
 				$feed['meta']['sheet'],
-				$range,
+				'1:1',
 				$body,
 				array(
 					'valueInputOption' => 'RAW',
