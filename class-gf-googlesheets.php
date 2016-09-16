@@ -535,7 +535,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 					),
 					array(
 						'name'  => 'authCode',
-						'label' => esc_html__( 'Authentication Code', 'gravityformsgooglesheets' ),
+						'label' => esc_html__( 'Authenticate', 'gravityformsgooglesheets' ),
 						'type'  => 'auth_code',
 					),
 					array(
