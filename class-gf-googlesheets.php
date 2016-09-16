@@ -343,7 +343,12 @@ class GFGoogleSheets extends GFFeedAddOn {
 
 				$token = $client->fetchAccessTokenWithAuthCode( $_GET['code'] );
 
-				$settings                = $this->get_plugin_settings();
+				$settings = $this->get_plugin_settings();
+
+				if ( isset( $token['refresh_token'] ) ) {
+					$settings['refreshToken'] = $token['refresh_token'];
+				}
+
 				$settings['accessToken'] = $token;
 				$this->update_plugin_settings( $settings );
 
@@ -469,18 +474,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 			// Refresh token if expired
 			if ( $client->isAccessTokenExpired() ) {
 
-				$client->fetchAccessTokenWithRefreshToken( $client->getRefreshToken() );
-
-				$settings         = $this->get_plugin_settings();
-				$new_access_token = $client->getAccessToken();
-
-				// Make sure old refresh token gets copied over.
-				if ( ! isset( $new_access_token['refresh_token'] ) ) {
-					$new_access_token['refresh_token'] = $access_token['refresh_token'];
-				}
-
-				$settings['accessToken'] = $new_access_token;
-				$this->update_plugin_settings( $settings );
+				$client->fetchAccessTokenWithRefreshToken( $this->get_plugin_setting( 'refreshToken' ) );
 			}
 
 			$googledrive  = new Google_Service_Drive( $client );
@@ -766,11 +760,14 @@ class GFGoogleSheets extends GFFeedAddOn {
 					'value' => $file->id,
 				);
 			}
+			echo 'GOOD';
 
 			// Log that test passed.
 			$this->log_debug( __METHOD__ . '(): Spreadsheet Feed returned.' );
 
 		} catch ( Exception $e ) {
+
+			var_dump( $e );
 
 			// Log that test failed.
 			$this->log_error( __METHOD__ . '(): Could not get Spreadsheet Feed; ' . $e->getMessage() );
