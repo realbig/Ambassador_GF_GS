@@ -232,17 +232,11 @@ class GFGoogleSheets extends GFFeedAddOn {
 
 			// Load the GoogleSheets autoloader.
 			if ( ! function_exists( '\GoogleSheets\autoload' ) ) {
-//				require_once 'includes/api/autoload.php';
 				require_once 'vendor/autoload.php';
 			}
 
 			// Get plugin settings.
 			$settings = $this->get_plugin_settings();
-
-			// Initialize the GoogleSheets field class.
-			if ( ! rgar( $settings, 'defaultAppEnabled' ) && rgar( $settings, 'accessToken' ) ) {
-//				require_once 'includes/class-gf-field-googlesheets.php';
-			}
 		}
 	}
 
@@ -341,15 +335,15 @@ class GFGoogleSheets extends GFFeedAddOn {
 
 				$client = $this->get_api_client();
 
-				$token = $client->fetchAccessTokenWithAuthCode( $_GET['code'] );
+				$token_info = $client->fetchAccessTokenWithAuthCode( $_GET['code'] );
 
 				$settings = $this->get_plugin_settings();
 
-				if ( isset( $token['refresh_token'] ) ) {
-					$settings['refreshToken'] = $token['refresh_token'];
+				if ( isset( $token_info['refresh_token'] ) ) {
+					$settings['refreshToken'] = $token_info['refresh_token'];
 				}
 
-				$settings['accessToken'] = $token;
+				$settings['accessToken'] = $token_info['access_token'];
 				$this->update_plugin_settings( $settings );
 
 				set_transient( 'gform_googlesheets_auth_success', '1', 30 );
@@ -397,6 +391,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 			$client->revokeToken();
 
 			$settings['accessToken'] = false;
+			$settings['refreshToken'] = false;
 
 			$this->update_plugin_settings( $settings );
 
@@ -534,6 +529,10 @@ class GFGoogleSheets extends GFFeedAddOn {
 					),
 					array(
 						'name' => 'accessToken',
+						'type' => 'hidden',
+					),
+					array(
+						'name' => 'refreshToken',
 						'type' => 'hidden',
 					),
 				),
@@ -760,14 +759,11 @@ class GFGoogleSheets extends GFFeedAddOn {
 					'value' => $file->id,
 				);
 			}
-			echo 'GOOD';
 
 			// Log that test passed.
 			$this->log_debug( __METHOD__ . '(): Spreadsheet Feed returned.' );
 
 		} catch ( Exception $e ) {
-
-			var_dump( $e );
 
 			// Log that test failed.
 			$this->log_error( __METHOD__ . '(): Could not get Spreadsheet Feed; ' . $e->getMessage() );
