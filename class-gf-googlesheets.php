@@ -2,7 +2,7 @@
 /**
  * Loads if determined compatible. The main plugin file.
  *
- * @since {{VERSION}}
+ * @since 1.0.0
  *
  * @package GravityFormsGoogleSheets
  */
@@ -21,7 +21,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the version of the GoogleSheets Add-On.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $_version Contains the version, defined in googlesheets.php
 	 */
@@ -30,7 +30,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the minimum Gravity Forms version required.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $_min_gravityforms_version The minimum version required.
 	 */
@@ -39,7 +39,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the plugin slug.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $_slug The slug used for this plugin.
 	 */
@@ -48,7 +48,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the main plugin file.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $_path The path to the main plugin file, relative to the plugins folder.
 	 */
@@ -57,7 +57,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the full path to this class file.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $_full_path The full path.
 	 */
@@ -66,7 +66,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the URL where this Add-On can be found.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string
 	 */
@@ -75,7 +75,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the title of this Add-On.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $_title The title of the Add-On.
 	 */
@@ -84,7 +84,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the short title of this Add-On.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $_title The short title of the Add-On.
 	 */
@@ -93,7 +93,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Contains an instance of this class, if available.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access private
 	 * @var    object $_instance If available, contains an instance of this class.
 	 */
@@ -102,7 +102,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the capability needed to access the Add-On settings page.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $_capabilities_settings_page The capability needed to access the Add-On settings page.
 	 */
@@ -111,7 +111,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the capability needed to access the Add-On form settings page.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $_capabilities_form_settings The capability needed to access the Add-On form settings page.
 	 */
@@ -120,7 +120,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the capability needed to uninstall the Add-On.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $_capabilities_uninstall The capability needed to uninstall the Add-On.
 	 */
@@ -129,7 +129,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the capabilities to add to roles by the Members plugin.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    array $_capabilities Capabilities to add to roles by the Members plugin.
 	 */
@@ -138,7 +138,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Contains an instance of the Google Drive API libray, if available.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access public
 	 * @var    Google_Service_Drive $api If available, contains an instance of the Google Drive API library.
 	 */
@@ -147,7 +147,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Contains an instance of the Google Sheets API libray, if available.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access public
 	 * @var    Google_Service_Sheets $api If available, contains an instance of the Google Sheets API library.
 	 */
@@ -156,7 +156,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Contains an instance of the Google Client.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access public
 	 * @var    Google_Client $api If available, contains an instance of the Google Client.
 	 */
@@ -165,7 +165,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the GoogleSheets API client identifier.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $googlesheets_client_identifier GoogleSheets API client identifier.
 	 */
@@ -175,7 +175,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Contains a queue of GoogleSheets feeds that need to be processed on shutdown.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    array $googlesheets_feeds_to_process A queue of GoogleSheets feeds that need to be processed on shutdown.
 	 */
@@ -185,7 +185,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Defines the nonce action used when processing GoogleSheets feeds.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    string $nonce_action Nonce action for processing GoogleSheets feeds.
 	 */
@@ -195,7 +195,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * The notification events which should be triggered once the last feed has been processed.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access protected
 	 * @var    array $_notification_events The notification events which should be triggered once the last feed has been processed.
 	 */
@@ -222,7 +222,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Include the API and GoogleSheets Upload Field.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 */
 	public function pre_init() {
 
@@ -260,7 +260,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Add AJAX callback for retrieving folder contents.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access public
 	 * @return void
 	 */
@@ -364,7 +364,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Logs out of the Google Client.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 */
 	public function api_logout() {
 
@@ -405,7 +405,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Sets up the Google client.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 *
 	 * @return Google_Client The client.
 	 */
@@ -728,7 +728,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Get fields for the Google Sheet setting.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 */
 	public function get_sheet_choices() {
 
@@ -775,7 +775,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * Get fields for feed setting.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access public
 	 *
 	 * @param string $sheet_ID The Google Sheet ID.
@@ -810,7 +810,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * AJAX call for getting and populating the Google Sheet field for the feed settings.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function ajax_get_sheet_choices() {
@@ -825,7 +825,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 	/**
 	 * AJAX call for getting and populating the fields field for the feed settings.
 	 *
-	 * @since {{VERSION}}
+	 * @since 1.0.0
 	 * @access public
 	 */
 	public function ajax_get_sheet_field_map() {

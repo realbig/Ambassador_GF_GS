@@ -2,14 +2,14 @@
 /**
  * Plugin Name: Gravity Forms Google Sheets Add-On
  * Description: Allows Gravity Form submissions to be sent to a Google Sheet.
- * Version: 0.1.0
+ * Version: 1.0.0
  * Author: Real Big Marketing
  * Author URI: http://realbigmarketing.com
  */
 
 defined( 'ABSPATH' ) || die();
 
-define( 'GF_GOOGLESHEETS_VERSION', '0.1.0' );
+define( 'GF_GOOGLESHEETS_VERSION', '1.0.0' );
 
 // If Gravity Forms is loaded, bootstrap the Google Sheets Add-On.
 add_action( 'gform_loaded', array( 'GFGoogleSheets_Bootstrap', 'load' ), 5 );

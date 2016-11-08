@@ -2,7 +2,7 @@
 /**
  * Loads if determined incompatible.
  *
- * @since {{VERSION}}
+ * @since 1.0.0
  *
  * @package GravityFormsGoogleSheets
  */
