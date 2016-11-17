@@ -336,11 +336,16 @@ class GFGoogleSheets extends GFFeedAddOn {
 				$client = $this->get_api_client();
 
 				$token_info = $client->fetchAccessTokenWithAuthCode( $_GET['code'] );
+				$client->setAccessToken( $token_info );
 
 				$settings = $this->get_plugin_settings();
 
 				if ( isset( $token_info['refresh_token'] ) ) {
 					$settings['refreshToken'] = $token_info['refresh_token'];
+				}
+
+				if ( isset( $token_info['id_token'] ) ) {
+					$settings['IDToken'] = $token_info['id_token'];
 				}
 
 				$settings['accessToken'] = $token_info['access_token'];
@@ -390,7 +395,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 			$client->setAccessToken( $settings['accessToken'] );
 			$client->revokeToken();
 
-			$settings['accessToken'] = false;
+			$settings['accessToken']  = false;
 			$settings['refreshToken'] = false;
 
 			$this->update_plugin_settings( $settings );
@@ -428,6 +433,7 @@ class GFGoogleSheets extends GFFeedAddOn {
 		$client->setClientSecret( rgar( $settings, 'clientSecret' ) );
 		$client->setRedirectUri( $redirect_uri );
 		$client->addScope( Google_Service_Sheets::DRIVE );
+		$client->addScope( 'email' );
 		$client->setAccessType( 'offline' );
 
 		$this->api_client = $client;
@@ -535,6 +541,10 @@ class GFGoogleSheets extends GFFeedAddOn {
 						'name' => 'refreshToken',
 						'type' => 'hidden',
 					),
+					array(
+						'name' => 'IDToken',
+						'type' => 'hidden',
+					),
 				),
 			),
 		);
@@ -591,7 +601,30 @@ class GFGoogleSheets extends GFFeedAddOn {
 
 		} else {
 
-			$html = esc_html__( 'GoogleSheets has been authenticated with your account.', 'gravityformsgooglesheets' );
+			// Attempt to get user information
+			if ( $ID_token = $this->get_plugin_setting( 'IDToken' ) ) {
+
+				if ( $result = $this->api_client->verifyIdToken( $ID_token ) ) {
+
+					if ( isset( $result['email'] ) && $result['email'] ) {
+
+						$email = $result['email'];
+					}
+				}
+			}
+
+			if ( isset( $email ) ) {
+
+				$html = sprintf(
+					esc_html__( 'Google Sheets has been authenticated by %s.', 'gravityformsgooglesheets' ),
+					"<strong>$email</strong>"
+				);
+
+			} else {
+
+				$html = esc_html__( 'Google Sheets has been authenticated.', 'gravityformsgooglesheets' );
+			}
+
 			$html .= '&nbsp;&nbsp;<i class=\"fa icon-check fa-check gf_valid\"></i><br /><br />';
 			$html .= sprintf(
 				' <a href="%2$s" class="button" id="gform_googlesheets_deauth_button">%1$s</a>',
