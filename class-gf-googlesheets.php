@@ -602,15 +602,24 @@ class GFGoogleSheets extends GFFeedAddOn {
 		} else {
 
 			// Attempt to get user information
-			if ( $ID_token = $this->get_plugin_setting( 'IDToken' ) ) {
+			$this->log_debug( __METHOD__ . '(): Getting Google user information.' );
 
-				if ( $result = $this->api_client->verifyIdToken( $ID_token ) ) {
+			try {
 
-					if ( isset( $result['email'] ) && $result['email'] ) {
+				if ( $ID_token = $this->get_plugin_setting( 'IDToken' ) ) {
 
-						$email = $result['email'];
+					if ( $result = $this->api_client->verifyIdToken( $ID_token ) ) {
+
+						if ( isset( $result['email'] ) && $result['email'] ) {
+
+							$email = $result['email'];
+						}
 					}
 				}
+
+			} catch ( Exception $e ) {
+
+				$this->log_error( __METHOD__ . '(): Could not get Google user information; ' . $e->getMessage() );
 			}
 
 			if ( isset( $email ) ) {
@@ -823,9 +832,21 @@ class GFGoogleSheets extends GFFeedAddOn {
 
 		$choices = array();
 
-		$sheet_values = $this->api_sheets->spreadsheets_values->get( $sheet_ID, '1:1', array(
-			'majorDimension' => 'ROWS',
-		) );
+		$this->log_debug( __METHOD__ . '(): Getting sheet columns for field map for Sheet  ' . $sheet_ID . '.' );
+
+		try {
+
+			$sheet_values = $this->api_sheets->spreadsheets_values->get( $sheet_ID, '1:1', array(
+				'majorDimension' => 'ROWS',
+			) );
+
+		} catch ( Exception $e ) {
+
+			// Log that test failed.
+			$this->log_error( __METHOD__ . '(): Could not get Sheet columns for field mapping; ' . $e->getMessage() );
+
+			return array();
+		}
 
 		if ( isset( $sheet_values->values[0] ) ) {
 			foreach ( $sheet_values->values[0] as $i => $column ) {
